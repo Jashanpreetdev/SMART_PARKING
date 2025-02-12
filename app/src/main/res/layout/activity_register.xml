@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    android:gravity="center_horizontal"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00A651"
+        android:padding="20dp"
+        android:text="Smart Park"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-medium"
+        android:elevation="4dp"
+        android:layout_marginBottom="50dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="30dp">
+
+        <EditText
+            android:id="@+id/etName"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:hint="Name"
+            android:drawableLeft="@android:drawable/ic_menu_myplaces"
+            android:drawablePadding="10dp"
+            android:background="@drawable/edittext_bg"
+            android:padding="10dp"
+            android:textColor="#000000"
+            android:textColorHint="#CCCCCC"
+            android:textSize="16sp"
+            android:layout_marginBottom="20dp" />
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:drawableLeft="@android:drawable/ic_dialog_email"
+            android:drawablePadding="10dp"
+            android:background="@drawable/edittext_bg"
+            android:padding="10dp"
+            android:textColor="#000000"
+            android:textColorHint="#CCCCCC"
+            android:textSize="16sp"
+            android:layout_marginBottom="20dp" />
+
+        <EditText
+            android:id="@+id/etPhone"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:hint="Phone"
+            android:inputType="phone"
+            android:drawableLeft="@android:drawable/ic_menu_call"
+            android:drawablePadding="10dp"
+            android:background="@drawable/edittext_bg"
+            android:padding="10dp"
+            android:textColor="#000000"
+            android:textColorHint="#CCCCCC"
+            android:textSize="16sp"
+            android:layout_marginBottom="20dp" />
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:drawableLeft="@android:drawable/ic_lock_idle_lock"
+            android:drawablePadding="10dp"
+            android:background="@drawable/edittext_bg"
+            android:padding="10dp"
+            android:textColor="#000000"
+            android:textColorHint="#CCCCCC"
+            android:textSize="16sp"
+            android:layout_marginBottom="40dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="──────── or ────────"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp" />
+
+
+        <TextView
+            android:id="@+id/tvAlreadyRegistered"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🔍Already registered?"
+            android:textColor="#00A651"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_gravity="center_horizontal"
+            android:padding="8dp"
+            android:layout_marginBottom="40dp"/>
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="300dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+            android:text="Register"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_bg"
+            android:textSize="18sp"
+            android:layout_marginTop="20dp"
+            android:elevation="4dp" />
+    </LinearLayout>
+</LinearLayout>
