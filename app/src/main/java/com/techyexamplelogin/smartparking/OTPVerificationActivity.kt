@@ -4,10 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.techyexamplelogin.smartparking.R
 
 class OTPVerificationActivity : AppCompatActivity() {
 
@@ -19,11 +17,13 @@ class OTPVerificationActivity : AppCompatActivity() {
     private lateinit var tvEmail: TextView
     private lateinit var tvChangeEmail: TextView
 
+    private val correctOTP = "1234"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.otp)
 
-        // Initialize UI elements
+
         etCode1 = findViewById(R.id.etCode1)
         etCode2 = findViewById(R.id.etCode2)
         etCode3 = findViewById(R.id.etCode3)
@@ -42,7 +42,7 @@ class OTPVerificationActivity : AppCompatActivity() {
         // Change Email Click Listener
         tvChangeEmail.setOnClickListener {
             Toast.makeText(this, "Change Email Clicked!", Toast.LENGTH_SHORT).show()
-            // Handle email change functionality here
+            // Handle email change functionality
         }
     }
 
@@ -55,6 +55,9 @@ class OTPVerificationActivity : AppCompatActivity() {
                     if (s?.length == 1) {
                         if (i < editTexts.size - 1) {
                             editTexts[i + 1].requestFocus() // Move to next field
+                        } else {
+                            // If last field is filled, check OTP
+                            checkOTP()
                         }
                     } else if (s?.isEmpty() == true) {
                         if (i > 0) {
@@ -69,11 +72,31 @@ class OTPVerificationActivity : AppCompatActivity() {
         }
     }
 
+    private fun checkOTP() {
+        val enteredOTP = getEnteredOTP()
+        if (enteredOTP == correctOTP) {
+            Toast.makeText(this, "OTP Verified!", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, MainActivity::class.java)) // Change to next activity
+            finish()
+        } else {
+            Toast.makeText(this, "Incorrect OTP! Try again.", Toast.LENGTH_SHORT).show()
+            clearOTPFields()
+        }
+    }
+
     private fun getEnteredOTP(): String {
         return etCode1.text.toString() +
                 etCode2.text.toString() +
                 etCode3.text.toString() +
                 etCode4.text.toString()
+    }
+
+    private fun clearOTPFields() {
+        etCode1.text.clear()
+        etCode2.text.clear()
+        etCode3.text.clear()
+        etCode4.text.clear()
+        etCode1.requestFocus()
     }
 
     private fun resendOTP() {
