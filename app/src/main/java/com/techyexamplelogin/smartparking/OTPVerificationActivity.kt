@@ -6,8 +6,48 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import retrofit2.Call
+import retrofit2.http.POST
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.http.Body
+
 
 class OTPVerificationActivity : AppCompatActivity() {
+
+    private fun registerUser(name:String,email:String,phone: String,password: String,otp:String) {
+        val apiService = RetrofitInstance.instance.create(ApiService::class.java)
+        val user =UserData(name,email,phone,password,otp)
+
+        apiService.signUpUserData(user).enqueue(object : Callback<UserResponseAuth> {
+            override fun onResponse(call: Call<UserResponseAuth>, response: Response<UserResponseAuth>) {
+                if (response.isSuccessful) {
+                    val responseData = response.body()?.data
+
+                    responseData?.token?.let { token ->
+                        val sharedPref = getSharedPreferences("AUTH", MODE_PRIVATE)
+                        with(sharedPref.edit()) {
+                            putString("TOKEN", token)
+                            apply()
+                        }
+                        Toast.makeText(this@OTPVerificationActivity, "OTP Verified!", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this@OTPVerificationActivity, NavigationActivity::class.java))
+                        finish()
+                    } ?: run {
+                        Toast.makeText(this@OTPVerificationActivity, "Token not received!", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    println("Signup failed: ${response.errorBody()?.string()}")
+                    Toast.makeText(this@OTPVerificationActivity, "Incorrect OTP! Try again.", Toast.LENGTH_SHORT).show()
+                    clearOTPFields()
+                }
+            }
+
+            override fun onFailure(call: Call<UserResponseAuth>, t: Throwable) {
+                println("Network error: ${t.message}")
+            }
+        })
+    }
 
     private lateinit var etCode1: EditText
     private lateinit var etCode2: EditText
@@ -17,13 +57,13 @@ class OTPVerificationActivity : AppCompatActivity() {
     private lateinit var tvEmail: TextView
     private lateinit var tvChangeEmail: TextView
 
-    private val correctOTP = "1234"
+     // Replace with actual OTP logic
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.otp)
 
-
+        // Initialize UI elements
         etCode1 = findViewById(R.id.etCode1)
         etCode2 = findViewById(R.id.etCode2)
         etCode3 = findViewById(R.id.etCode3)
@@ -74,14 +114,14 @@ class OTPVerificationActivity : AppCompatActivity() {
 
     private fun checkOTP() {
         val enteredOTP = getEnteredOTP()
-        if (enteredOTP == correctOTP) {
-            Toast.makeText(this, "OTP Verified!", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this, MainActivity::class.java)) // Change to next activity
-            finish()
-        } else {
-            Toast.makeText(this, "Incorrect OTP! Try again.", Toast.LENGTH_SHORT).show()
-            clearOTPFields()
-        }
+        val sharedPref = getSharedPreferences("UserPrefs", MODE_PRIVATE)
+        val name = sharedPref.getString("USERNAME", "User") ?: "User"
+        val email = sharedPref.getString("EMAIL", "Email") ?: "User"
+        val password = sharedPref.getString("PASSWORD", "Password") ?: "User"
+        val phone = sharedPref.getString("PHONE", "Phone") ?: "User"
+
+        registerUser(name,email,phone, password,enteredOTP)
+//
     }
 
     private fun getEnteredOTP(): String {

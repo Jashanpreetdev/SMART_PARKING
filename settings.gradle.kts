@@ -10,6 +10,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven("https://api.mapbox.com/downloads/v2/releases/maven")
     }
 }
 

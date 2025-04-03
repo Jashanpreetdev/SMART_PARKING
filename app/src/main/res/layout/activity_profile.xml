@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F8F8">
+
+    <!-- Main Content -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="56dp">  <!-- To prevent overlap with BottomNavigationView -->
+
+        <!-- Green Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="#009846"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Smart Park"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"/>
+        </LinearLayout>
+
+        <!-- Profile Card -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="16dp"
+            android:background="#D0F5D1"
+            android:padding="16dp"
+            android:orientation="horizontal"
+            android:elevation="4dp"
+            android:radius="20dp">
+
+            <ImageView
+                android:id="@+id/profileImage"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/default_profilepic"
+                android:scaleType="centerCrop"
+                android:background="@drawable/circle_background"
+                android:layout_marginEnd="16dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/profileName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="NAME"
+                    android:fontFamily="serif"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
+
+                <TextView
+                    android:id="@+id/profileEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="name@gmail.com"
+                    android:textSize="14sp"
+                    android:textColor="#009846"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Phone No."
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
+
+                <TextView
+                    android:id="@+id/profilePhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+91 96960 56789"
+                    android:textSize="14sp"
+                    android:textColor="#009846"/>
+            </LinearLayout>
+
+
+
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/logoutbttn"
+            android:layout_width="200dp"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:alpha="1"
+            android:text="Logout" />
+    </LinearLayout>
+
+        <!-- Separator Line -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="#009846"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="40dp"/>
+
+        <!-- Buttons Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="40dp">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="View Bookings"
+                android:textSize="16sp"
+                android:textColor="@color/green"
+                android:backgroundTint="@color/white"
+                android:elevation="4dp"
+                android:layout_marginBottom="12dp"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Your Space"
+                android:textSize="16sp"
+                android:textColor="@color/green"
+                android:backgroundTint="@color/white"
+                android:elevation="4dp"
+                android:layout_marginBottom="12dp"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Your Vehicle"
+                android:textSize="16sp"
+                android:textColor="@color/green"
+                android:backgroundTint="@color/white"
+                android:elevation="4dp"/>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <!-- Bottom Navigation Bar (Fixed at Bottom) -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/bottom_nav_menu"/>
+</RelativeLayout>

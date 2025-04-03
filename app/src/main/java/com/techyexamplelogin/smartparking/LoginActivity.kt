@@ -6,8 +6,61 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
+    private fun HangleLogin(email:String,password: String) {
+        val apiService = RetrofitInstance.instance.create(ApiService::class.java)
+        val user = LoginData(email, password)
+
+        apiService.loginUser(user).enqueue(object : Callback<UserResponse> {
+            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+                if (response.isSuccessful) {
+                    val responseData = response.body()?.data
+                    val sharedPrefUser = getSharedPreferences("UserPrefs", MODE_PRIVATE)
+                    with(sharedPrefUser.edit()) {
+                        putString("USERNAME", response.body()?.data?.user?.name)
+                        putString("EMAIL", response.body()?.data?.user?.email)
+                        putString("PHONE", response.body()?.data?.user?.phone)
+                        apply()
+                    }
+
+
+                    responseData?.token?.let { token ->
+                        val sharedPref = getSharedPreferences("AUTH", MODE_PRIVATE)
+                        with(sharedPref.edit()) {
+                            putString("TOKEN", token)
+                            apply()
+                        }
+                        Toast.makeText(this@LoginActivity, "User Verified!", Toast.LENGTH_SHORT)
+                            .show()
+                        startActivity(Intent(this@LoginActivity, NavigationActivity::class.java))
+                        finish()
+                    } ?: run {
+                        Toast.makeText(
+                            this@LoginActivity,
+                            "Token not received!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                } else {
+                    println("Signup failed: ${response.errorBody()?.string()}")
+                    Toast.makeText(
+                        this@LoginActivity,
+                        "Incorrect Credentials! Try again.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                }
+            }
+
+            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                println("Network error: ${t.message}")
+            }
+        })
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -24,17 +77,7 @@ class LoginActivity : AppCompatActivity() {
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 // Placeholder for actual authentication logic
-                if (email == "admin@example.com" && password == "123456") {
-                    Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show()
-
-                    // Navigate to OTPVerificationActivity with the entered email
-                    val intent = Intent(this, OTPVerificationActivity::class.java)
-                    intent.putExtra("user_email", email)  // Passing email for verification
-                    startActivity(intent)
-                    finish()
-                } else {
-                    Toast.makeText(this, "Invalid Email or Password!", Toast.LENGTH_SHORT).show()
-                }
+                HangleLogin(email,password)
             } else {
                 Toast.makeText(this, "Please enter email and password!", Toast.LENGTH_SHORT).show()
             }

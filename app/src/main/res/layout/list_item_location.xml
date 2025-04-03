@@ -4,16 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="12dp">
+    android:padding="12dp"
+    android:gravity="center_vertical">
 
-    <!-- Location Emoji -->
-    <TextView
-        android:id="@+id/tvLocationEmoji"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="📍"
-        android:textSize="18sp"
-        android:paddingEnd="8dp"/>
+    <!-- Custom SVG Location Icon -->
+    <ImageView
+        android:id="@+id/ivLocationIcon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/path_34175"
+        android:contentDescription="Location Icon"
+        android:tint="@color/green"
+        android:layout_marginEnd="8dp"/>
 
     <!-- Location Name -->
     <TextView
