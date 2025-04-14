@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Selected State: Green Background with Black Border -->
+    <item android:state_selected="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/green"/>
+            <stroke android:width="3dp" android:color="@color/black"/>
+            <corners android:radius="12dp"/>
+            <padding android:left="15dp" android:right="15dp" android:top="15dp" android:bottom="15dp"/>
+        </shape>
+    </item>
+
+    <!-- Default State: Light Gray Background Without Border -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/white"/> <!-- Light gray background -->
+            <stroke android:width="0dp" android:color="@android:color/transparent"/> <!-- No border -->
+            <corners android:radius="12dp"/>
+            <padding android:left="15dp" android:right="15dp" android:top="15dp" android:bottom="15dp"/>
+        </shape>
+    </item>
+</selector>
